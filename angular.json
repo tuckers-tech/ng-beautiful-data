@@ -2,5 +2,165 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "ng-beautiful-data": {
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
+      "projectType": "library",
+      "root": "projects/ng-beautiful-data",
+      "sourceRoot": "projects/ng-beautiful-data/src",
+      "prefix": "bd",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ng-beautiful-data/tsconfig.lib.json",
+            "project": "projects/ng-beautiful-data/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-beautiful-data/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ng-beautiful-data/src/test.ts",
+            "tsConfig": "projects/ng-beautiful-data/tsconfig.spec.json",
+            "karmaConfig": "projects/ng-beautiful-data/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ng-beautiful-data/tsconfig.lib.json",
+              "projects/ng-beautiful-data/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    },
+    "beautiful-data-test": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/beautiful-data-test",
+      "sourceRoot": "projects/beautiful-data-test/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/beautiful-data-test",
+            "index": "projects/beautiful-data-test/src/index.html",
+            "main": "projects/beautiful-data-test/src/main.ts",
+            "polyfills": "projects/beautiful-data-test/src/polyfills.ts",
+            "tsConfig": "projects/beautiful-data-test/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/beautiful-data-test/src/favicon.ico",
+              "projects/beautiful-data-test/src/assets"
+            ],
+            "styles": ["projects/beautiful-data-test/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/beautiful-data-test/src/environments/environment.ts",
+                  "with": "projects/beautiful-data-test/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "beautiful-data-test:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "beautiful-data-test:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "beautiful-data-test:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/beautiful-data-test/src/test.ts",
+            "polyfills": "projects/beautiful-data-test/src/polyfills.ts",
+            "tsConfig": "projects/beautiful-data-test/tsconfig.spec.json",
+            "karmaConfig": "projects/beautiful-data-test/karma.conf.js",
+            "assets": [
+              "projects/beautiful-data-test/src/favicon.ico",
+              "projects/beautiful-data-test/src/assets"
+            ],
+            "styles": ["projects/beautiful-data-test/src/styles.scss"],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/beautiful-data-test/tsconfig.app.json",
+              "projects/beautiful-data-test/tsconfig.spec.json",
+              "projects/beautiful-data-test/e2e/tsconfig.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/beautiful-data-test/e2e/protractor.conf.js",
+            "devServerTarget": "beautiful-data-test:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "beautiful-data-test:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "ng-beautiful-data"
 }

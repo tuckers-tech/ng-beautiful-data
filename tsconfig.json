@@ -6,5 +6,18 @@
 */
 {
   "files": [],
-  "references": []
+  "references": [
+    {
+      "path": "./projects/ng-beautiful-data/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/ng-beautiful-data/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/beautiful-data-test/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/beautiful-data-test/tsconfig.spec.json"
+    }
+]
 }
