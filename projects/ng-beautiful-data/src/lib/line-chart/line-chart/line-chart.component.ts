@@ -43,8 +43,8 @@ export class LineChartComponent implements OnInit, AfterViewInit, OnDestroy {
       (modelReadyStatus) => {
         this.dataModelReady = modelReadyStatus;
         if (this.dataModelReady) {
+          this.stopWatchingDataModelStatus();
         }
-        console.log(this.dataModel);
       }
     );
   }
@@ -64,7 +64,7 @@ export class LineChartComponent implements OnInit, AfterViewInit, OnDestroy {
       );
     });
 
-    // this.runEventLoop();
+    this.runEventLoop();
   }
 
   ngOnDestroy(): void {
@@ -110,7 +110,14 @@ export class LineChartComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private animate(): void {
     const animFrame = requestAnimationFrame(this.animate.bind(this));
-    console.log('Animation Frame');
+
+    if (this.dataModelReady) {
+      // show the plot
+      console.log('Show Data Plot');
+    } else {
+      // show the loading screen
+      console.log('Show Loading Icon');
+    }
   }
 
   private readyUpDataModel(): void {
