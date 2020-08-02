@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LineChartComponent } from './line-chart.component';
+import { LineChartComponent } from './line-chart/line-chart.component';
 import { LineComponent } from './line/line.component';
 
 @NgModule({

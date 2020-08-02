@@ -10,7 +10,5 @@ export class AppComponent {
   lineData: CloseData[];
   constructor(private dataService: DataService) {
     this.lineData = dataService.getClose();
-
-    console.log(this.lineData);
   }
 }
